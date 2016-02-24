@@ -9,6 +9,7 @@ import saf.components.AppDataComponent;
 import saf.components.AppComponentsBuilder;
 import java.net.URL;
 import javafx.application.Application;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import properties_manager.PropertiesManager;
 import static saf.settings.AppPropertyType.APP_CSS;
@@ -117,6 +118,15 @@ public abstract class AppTemplate extends Application {
 	String stylesheet = props.getProperty(APP_PATH_CSS);
 	stylesheet += props.getProperty(APP_CSS);
 	URL stylesheetURL = getClass().getResource(stylesheet);
+        // code for exception handling
+        
+        if(stylesheetURL == null){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Message");
+                alert.setHeaderText("Error");
+                alert.setContentText("can't find the style sheet resource!");
+                alert.showAndWait();
+        }
 	String stylesheetPath = stylesheetURL.toExternalForm();
 	getGUI().getPrimaryScene().getStylesheets().add(stylesheetPath);	
     }
